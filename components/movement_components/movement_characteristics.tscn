@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bjpforojmmur3"]
-
-[ext_resource type="Script" path="res://components/movement_components/movement_characteristics.gd" id="1_eg4i2"]
-
-[node name="MovementCharacteristics" type="Node"]
-script = ExtResource("1_eg4i2")

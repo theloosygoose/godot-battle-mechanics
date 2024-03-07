@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=3 uid="uid://ddhek2q18b3b1"]
+
+[ext_resource type="Shader" path="res://player/assets/ghost.gdshader" id="1_qwvpm"]
+[ext_resource type="Script" path="res://player/assets/ghost.gd" id="2_dsccl"]
+[ext_resource type="Script" path="res://player/assets/shader_timer.gd" id="3_jmdp2"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7mj60"]
+resource_local_to_scene = true
+shader = ExtResource("1_qwvpm")
+shader_parameter/value = 1.0
+
+[node name="Node2D" type="Sprite2D"]
+material = SubResource("ShaderMaterial_7mj60")
+script = ExtResource("2_dsccl")
+
+[node name="Timer" type="Timer" parent="."]
+script = ExtResource("3_jmdp2")
+
+[connection signal="draw" from="." to="Timer" method="_on_node_2d_draw"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,14 +1,23 @@
-[gd_scene load_steps=6 format=3 uid="uid://d3o220y5yl4ng"]
+[gd_scene load_steps=7 format=3 uid="uid://d3o220y5yl4ng"]
 
 [ext_resource type="Texture2D" uid="uid://7w7m557vudoh" path="res://player/assets/spr_player.png" id="1_55fwc"]
+[ext_resource type="Shader" path="res://player/player.gdshader" id="1_hw4as"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_p01de"]
-[ext_resource type="PackedScene" uid="uid://bn31q3uj8e0rw" path="res://components/movement_components/movement.tscn" id="3_2ttym"]
-[ext_resource type="PackedScene" uid="uid://bjpforojmmur3" path="res://components/movement_components/movement_characteristics.tscn" id="4_08xq0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xxtf5"]
+shader = ExtResource("1_hw4as")
+shader_parameter/is_dash = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ae1dc"]
 radius = 19.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1332d"]
+resource_local_to_scene = true
+shader = ExtResource("1_hw4as")
+shader_parameter/is_dash = false
+
 [node name="Player" type="Area2D"]
+material = SubResource("ShaderMaterial_xxtf5")
 script = ExtResource("1_p01de")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -16,16 +25,11 @@ position = Vector2(5.68434e-14, 5.68434e-14)
 shape = SubResource("CircleShape2D_ae1dc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_1332d")
+use_parent_material = true
 position = Vector2(9.53674e-07, 9.53674e-07)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("1_55fwc")
 
 [node name="Marker2D" type="Marker2D" parent="."]
 gizmo_extents = 89.0
-
-[node name="Movement" parent="." instance=ExtResource("3_2ttym")]
-
-[node name="MovementCharacteristics" parent="Movement" instance=ExtResource("4_08xq0")]
-accelleration_val = 9.102
-deceleration_val = 7.18
-max_speed = 600.0

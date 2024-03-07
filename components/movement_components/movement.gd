@@ -25,9 +25,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return []
 
 
-
-
 #Movement Data and Calculations
+var external_movement:bool = false
+
 var prev_data:Array = [Vector2.ZERO, 0.0]
 
 var accelleration:float = 0.0
@@ -46,17 +46,14 @@ func _ready() -> void:
 		
 	parent = self.get_parent() as Node2D
 	
-	print("Done")
 	
 		
 func _physics_process(delta: float) -> void:
 
-	var velocity:Vector2 = calculate_movement()
-	print(velocity)
-	print(delta)
+	if !external_movement:
+		var velocity:Vector2 = calculate_movement()
 
-	#update Parent Position
-	parent.position += velocity * delta
+		parent.position += velocity * delta
 
 
 #Movement Functions
@@ -67,9 +64,8 @@ func calculate_movement() -> Vector2:
 	new_velocity = get_direction()
 	
 	new_velocity = current_frame_velocity_handler(new_velocity)
-	
 	new_velocity = check_max_speed(new_velocity)
-	
+
 	new_velocity = handle_snap_stop(new_velocity)
 	
 	prev_data = next_frame_velocity_data(new_velocity)
@@ -95,17 +91,15 @@ func current_frame_velocity_handler(direction_vector: Vector2) -> Vector2:
 	var calculated_velocity: Vector2 = (direction_vector * (max_speed) + prev_data[0])
 	
 	if prev_data[1] >= calculated_velocity.length():
-		print("Slowing Down or Constant")
 		calculated_velocity -= prev_data[0] * deceleration 
 	elif prev_data[1] < calculated_velocity.length():
-		print("Speeding Up")
 		calculated_velocity += prev_data[0] * accelleration 
 	
 	return calculated_velocity
 
 
 func handle_snap_stop(new_velocity: Vector2) -> Vector2:
-	if new_velocity.length() <= 10 :
+	if new_velocity.length() <= max_speed / 10:
 		return Vector2.ZERO
 	else:
 		return new_velocity
@@ -118,7 +112,17 @@ func next_frame_velocity_data(new_velocity: Vector2)	-> Array:
 
 func check_max_speed(velocity: Vector2) -> Vector2:
 	if velocity.length() > max_speed:
-		print("MAX SPEED")
 		return velocity.normalized() * max_speed
 	else:
 		return velocity
+
+func _on_player_dash_dash_movement(dash_speed:float, delta:float, lastframe:bool) -> void:
+	external_movement = true
+
+	var prev_direction:Vector2 = prev_data[0]
+	
+	parent.position += (prev_direction.normalized() * dash_speed) * delta
+	
+	if lastframe:
+		prev_data[0] = prev_direction.normalized() * dash_speed / 3
+		external_movement = false

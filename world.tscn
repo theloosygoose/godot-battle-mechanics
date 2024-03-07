@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://bca6oic1xxh1p"]
+
+[ext_resource type="PackedScene" uid="uid://d3o220y5yl4ng" path="res://player/player.tscn" id="1_sp61r"]
+[ext_resource type="Script" path="res://components/movement_components/movement.gd" id="2_33u8v"]
+[ext_resource type="Script" path="res://components/movement_components/movement_characteristics.gd" id="3_nrgn3"]
+[ext_resource type="Script" path="res://components/movement_components/player_input/dash.gd" id="4_l75f6"]
+
+[node name="world" type="Node"]
+
+[node name="Player" parent="." instance=ExtResource("1_sp61r")]
+z_index = 1
+
+[node name="MovementComponent" type="Node" parent="Player"]
+script = ExtResource("2_33u8v")
+
+[node name="MovementCharacteristics" type="Node" parent="Player/MovementComponent"]
+script = ExtResource("3_nrgn3")
+accelleration_val = 8.154
+deceleration_val = 9.359
+max_speed = 441.538
+
+[node name="PlayerDash" type="Node" parent="Player"]
+script = ExtResource("4_l75f6")
+initial_pause_frames = 5
+dash_frames = 6
+dash_speed = 2000.0
+
+[connection signal="dash_movement" from="Player/PlayerDash" to="Player" method="_on_player_dash_dash_movement"]
+[connection signal="dash_movement" from="Player/PlayerDash" to="Player/MovementComponent" method="_on_player_dash_dash_movement"]
