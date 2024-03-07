@@ -1,11 +1,7 @@
 extends Area2D
 
-
-
 var texture: Texture2D 
 var texture_scale: Vector2
-
-var is_dash: bool = false
 
 var shader: ShaderMaterial
 
@@ -15,7 +11,7 @@ func _ready() -> void:
 			var sprite_2d_child:Sprite2D = child
 			texture_scale = sprite_2d_child.scale
 			texture = sprite_2d_child.texture
-	
+
 	shader = material as ShaderMaterial
 
 
@@ -31,14 +27,15 @@ func is_shooting() -> bool:
 		return false
 
 
-func _on_player_dash_dash_movement(_dash_speed:float, _delta:float, final_fixed_frame:bool) -> void:
+func _on_player_dash_dash_movement(_dash_speed:float, _delta:float, _final_fixed_frame:bool) -> void:
 	var ghost_effect:Sprite2D = preload("res://player/assets/ghost.tscn").instantiate()
-	shader.set_shader_parameter("is_dash", is_dash)
+
+	shader.set_shader_parameter("is_dash", true)
 
 	ghost_effect.texture = texture
 	ghost_effect.position = position
 	ghost_effect.scale = texture_scale
-	get_parent().add_child(ghost_effect);
-	
-	if final_fixed_frame:
-		is_dash = false
+	get_parent().add_child(ghost_effect)
+
+func _on_player_dash_dash_end() -> void:
+	shader.set_shader_parameter("is_dash", false) 

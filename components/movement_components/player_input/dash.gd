@@ -16,6 +16,7 @@ var dash_frame_counter: int = 0
 var final_fixed_frame: bool = false
 
 signal dash_movement(dash_speed: float, delta:float, final_fixed_frame:bool)
+signal dash_end
 
 func _ready() -> void:
 	dash_frames_max = dash_frames + initial_pause_frames
@@ -53,3 +54,4 @@ func dash_stop() -> void:
 	dash_frame_counter = 0
 	is_dashing = false
 	final_fixed_frame= false
+	dash_end.emit()
