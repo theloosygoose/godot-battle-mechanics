@@ -17,7 +17,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	is_shooting()
-	
+
 
 func is_shooting() -> bool:
 	if Input.is_action_just_pressed("main_action"):

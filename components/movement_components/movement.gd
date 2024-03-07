@@ -38,7 +38,7 @@ func _ready() -> void:
 	var characteristics:= find_movement_characteristics()
 
 	if characteristics:
-		print(characteristics.get_property_list())
+
 		accelleration = characteristics.accelleration
 		deceleration = characteristics.deceleration
 		max_speed = characteristics.max_speed
