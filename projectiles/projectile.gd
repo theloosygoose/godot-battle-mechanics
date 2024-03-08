@@ -13,7 +13,6 @@ var imported_texture: Texture2D
 
 func _ready() -> void:
 	assign_texture()
-
 	
 	position = initial_position
 
@@ -37,7 +36,6 @@ func assign_texture() -> void:
 		push_error("Texture Not Found Loading Default Texture")
 
 	var sprite2D: Sprite2D
-
 	for child in get_children():
 		if child is Sprite2D:
 			sprite2D = child
