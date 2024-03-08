@@ -5,14 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "GDScript: Launch Project",
+            "name": "Launch",
             "type": "godot",
             "request": "launch",
             "project": "${workspaceFolder}",
             "debug_collisions": false,
             "debug_paths": false,
             "debug_navigation": false,
-            "additional_options": ""
+            "time_scale": 1.0,
+            "profiling": true,
+            "additional_options": "--print-fps"
         }
     ]
 }

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://khckvubj083q"]
+
+[ext_resource type="Texture2D" uid="uid://dm071ctivb6hg" path="res://projectiles/assets/white_pill.png" id="1_crxr0"]
+[ext_resource type="Shader" path="res://projectiles/projectile.gdshader" id="1_r28ke"]
+[ext_resource type="Script" path="res://projectiles/projectile.gd" id="2_im1gp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nwjym"]
+shader = ExtResource("1_r28ke")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cxyfc"]
+size = Vector2(6, 24)
+
+[node name="Projectile" type="Area2D"]
+z_index = 2
+material = SubResource("ShaderMaterial_nwjym")
+script = ExtResource("2_im1gp")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(1, 4.76837e-07)
+scale = Vector2(1.875, 1.875)
+texture = ExtResource("1_crxr0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_cxyfc")

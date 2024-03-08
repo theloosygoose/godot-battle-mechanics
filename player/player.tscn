@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3o220y5yl4ng"]
+[gd_scene load_steps=11 format=3 uid="uid://d3o220y5yl4ng"]
 
 [ext_resource type="Texture2D" uid="uid://7w7m557vudoh" path="res://player/assets/spr_player.png" id="1_55fwc"]
 [ext_resource type="Shader" path="res://player/player.gdshader" id="1_hw4as"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://components/movement_components/movement.gd" id="4_xho7q"]
 [ext_resource type="Script" path="res://components/movement_components/movement_characteristics.gd" id="5_4wdqh"]
 [ext_resource type="Script" path="res://components/movement_components/player_input/dash.gd" id="6_87n7t"]
+[ext_resource type="Script" path="res://components/movement_components/player_input/shoot.gd" id="7_bp38j"]
+[ext_resource type="PackedScene" uid="uid://khckvubj083q" path="res://projectiles/projectile.tscn" id="8_rmukw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xxtf5"]
 shader = ExtResource("1_hw4as")
@@ -28,9 +30,6 @@ position = Vector2(9.53674e-07, 9.53674e-07)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("1_55fwc")
 
-[node name="Marker2D" type="Marker2D" parent="."]
-gizmo_extents = 89.0
-
 [node name="MovementComponent" type="Node" parent="."]
 script = ExtResource("4_xho7q")
 
@@ -45,6 +44,11 @@ script = ExtResource("6_87n7t")
 initial_pause_frames = 7
 dash_frames = 4
 dash_speed = 2300.0
+
+[node name="Shoot" type="Node2D" parent="."]
+script = ExtResource("7_bp38j")
+projectile_scene = ExtResource("8_rmukw")
+projectile_speed = 1000.0
 
 [connection signal="dash_end" from="PlayerDash" to="." method="_on_player_dash_dash_end"]
 [connection signal="dash_movement" from="PlayerDash" to="." method="_on_player_dash_dash_movement"]
