@@ -21,7 +21,7 @@ func _process(_delta: float) -> void:
 		projectile.speed = projectile_speed
 		projectile.direction = Vector2.UP
 		projectile.initial_position = global_position
-		get_tree().get_root().add_child(projectile)	
+		get_parent().get_parent().add_child(projectile)	
 
 
 func check_projectile_scene() -> PackedScene:
