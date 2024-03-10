@@ -51,7 +51,8 @@ script = ExtResource("7_bp38j")
 projectile_scene = ExtResource("8_rmukw")
 projectile_speed = 1000.0
 projectile_texture = ExtResource("8_6pxbs")
+projectile_damage = 10.0
 
 [connection signal="dash_end" from="PlayerDash" to="." method="_on_player_dash_dash_end"]
-[connection signal="dash_movement" from="PlayerDash" to="." method="_on_player_dash_dash_movement"]
+[connection signal="dash_move_start" from="PlayerDash" to="." method="_on_player_dash_dash_move_start"]
 [connection signal="dash_movement" from="PlayerDash" to="MovementComponent" method="_on_player_dash_dash_movement"]

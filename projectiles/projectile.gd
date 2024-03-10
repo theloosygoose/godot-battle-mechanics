@@ -1,15 +1,12 @@
 class_name Projectile
-extends Area2D 
-
-
-var damage:int = 10
-var proj_health: int = 100
+extends Node2D 
 
 var speed: float
 var direction: Vector2 = Vector2.ZERO 
 var initial_position: Vector2
-
 var imported_texture: Texture2D
+
+var damage: float = 1.0
 
 func _ready() -> void:
 	assign_texture()
@@ -19,15 +16,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	position += (speed * direction) * delta
 
-func _process(_delta: float) -> void:
-	check_health()
-
-func take_damage(damage_taken: int) -> void:
-	proj_health -= damage_taken
-
-func check_health() -> void:
-	if proj_health <= 0:
-		queue_free()
 
 func assign_texture() -> void:		
 	if !imported_texture:
@@ -40,3 +28,17 @@ func assign_texture() -> void:
 		if child is Sprite2D:
 			sprite2D = child
 			sprite2D.texture = imported_texture
+
+func _on_hitbox_component_area_entered(area: Area2D) -> void:
+	if area is HitboxComponent:
+		var target: HitboxComponent = area
+		var attack: Attack = Attack.new()
+
+		attack.attack_damage = damage 
+		target.recieve_attack(attack)
+		destory()
+		
+		
+
+func destory() -> void:
+	queue_free()

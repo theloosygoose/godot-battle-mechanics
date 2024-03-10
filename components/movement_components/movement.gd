@@ -46,7 +46,6 @@ func _ready() -> void:
 		
 	parent = self.get_parent() as Node2D
 	
-	
 		
 func _physics_process(delta: float) -> void:
 
@@ -126,3 +125,4 @@ func _on_player_dash_dash_movement(dash_speed:float, delta:float, lastframe:bool
 	if lastframe:
 		prev_data[0] = prev_direction.normalized() * dash_speed / 3
 		external_movement = false
+

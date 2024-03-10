@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://cevg8ylibsipf"]
+
+[ext_resource type="Texture2D" uid="uid://cc3ipdka04jsk" path="res://enemy/assets/lg_red_rectangle.png" id="1_62j60"]
+[ext_resource type="Script" path="res://enemy/enemy.gd" id="1_wcd7t"]
+[ext_resource type="Script" path="res://components/instances/scripts/HealthComponent.gd" id="2_ctqns"]
+[ext_resource type="Script" path="res://components/instances/scripts/hitbox_component.gd" id="2_hc5hw"]
+[ext_resource type="Script" path="res://enemy/Label.gd" id="3_00n5o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_22680"]
+size = Vector2(149, 149)
+
+[node name="Enemy" type="Node2D"]
+script = ExtResource("1_wcd7t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3.8147e-06, 3.8147e-06)
+scale = Vector2(2.53125, 2.53125)
+texture = ExtResource("1_62j60")
+
+[node name="HitboxComponent" type="Area2D" parent="." node_paths=PackedStringArray("health_component")]
+script = ExtResource("2_hc5hw")
+health_component = NodePath("../HealthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_22680")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_ctqns")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 82.0
+offset_top = -65.0
+offset_right = 122.0
+offset_bottom = -42.0
+visible_characters_behavior = 1
+script = ExtResource("3_00n5o")
+
+[connection signal="current_health" from="HealthComponent" to="Label" method="_on_health_component_current_health"]

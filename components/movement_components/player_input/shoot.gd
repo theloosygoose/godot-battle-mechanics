@@ -10,6 +10,7 @@ var default_projectile_scene: PackedScene = preload("res://projectiles/projectil
 @export var projectile_speed: float
 @export var projectile_scale: Vector2 
 @export var projectile_texture: Texture2D
+@export var projectile_damage: float
 
 var projectile_scene_checked: PackedScene 
 
@@ -23,6 +24,8 @@ func _process(_delta: float) -> void:
 		projectile.speed = projectile_speed
 		projectile.direction = Vector2.UP
 		projectile.initial_position = global_position
+		projectile.damage = projectile_damage
+
 		get_parent().get_parent().add_child(projectile)	
 
 
