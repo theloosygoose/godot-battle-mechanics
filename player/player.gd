@@ -18,7 +18,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	is_shooting()
 
-
 func is_shooting() -> bool:
 	if Input.is_action_just_pressed("main_action"):
 		print_debug("Main Action")
@@ -26,16 +25,19 @@ func is_shooting() -> bool:
 	else:
 		return false
 
-
 func _on_player_dash_dash_movement(_dash_speed:float, _delta:float, _final_fixed_frame:bool) -> void:
-	var ghost_effect:Sprite2D = preload("res://player/assets/ghost.tscn").instantiate()
+	pass
 
-	shader.set_shader_parameter("is_dash", true)
+func _on_player_dash_dash_end() -> void:
+	shader.set_shader_parameter("is_dash", false) 
+
+func _on_player_dash_dash_move_start() -> void:
+	var ghost_effect:Sprite2D = preload("res://player/assets/ghost.tscn").instantiate()
+	shader.set_shader_parameter("is_dash", true) 
 
 	ghost_effect.texture = texture
 	ghost_effect.position = position
 	ghost_effect.scale = texture_scale
 	get_parent().add_child(ghost_effect)
 
-func _on_player_dash_dash_end() -> void:
-	shader.set_shader_parameter("is_dash", false) 
+	shader.set_shader_parameter("is_dash", true) 

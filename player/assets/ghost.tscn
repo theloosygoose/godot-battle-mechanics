@@ -7,13 +7,15 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7mj60"]
 resource_local_to_scene = true
 shader = ExtResource("1_qwvpm")
-shader_parameter/value = 1.0
+shader_parameter/value = 0.5
 
 [node name="Node2D" type="Sprite2D"]
 material = SubResource("ShaderMaterial_7mj60")
 script = ExtResource("2_dsccl")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.404
+one_shot = true
 script = ExtResource("3_jmdp2")
 
 [connection signal="draw" from="." to="Timer" method="_on_node_2d_draw"]

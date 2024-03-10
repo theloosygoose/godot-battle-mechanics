@@ -9,7 +9,6 @@ extends Node
 @export var control_back_frame: int = 2
 
 var dash_frames_max: int
-		
 
 var is_dashing: bool = false
 var dash_frame_counter: int = 0
@@ -17,6 +16,7 @@ var final_fixed_frame: bool = false
 
 signal dash_movement(dash_speed: float, delta:float, final_fixed_frame:bool)
 signal dash_end
+signal dash_move_start 
 
 func _ready() -> void:
 	dash_frames_max = dash_frames + initial_pause_frames
@@ -37,6 +37,7 @@ func _physics_process(delta: float) -> void:
 			dash_movement.emit(1, delta, final_fixed_frame)
 		else:
 			dash_movement.emit(dash_speed, delta, final_fixed_frame)
+			dash_move_start.emit()
 
 		dash_frame_counter += 1
 		
