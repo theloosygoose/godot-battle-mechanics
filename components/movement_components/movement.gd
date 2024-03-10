@@ -1,7 +1,6 @@
 class_name MovementComponent
 extends Node
 
-
 #Check for Dependicies
 var parent: Node2D 
 
