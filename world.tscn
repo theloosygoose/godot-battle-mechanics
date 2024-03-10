@@ -1,25 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bca6oic1xxh1p"]
+[gd_scene load_steps=4 format=3 uid="uid://bca6oic1xxh1p"]
 
 [ext_resource type="PackedScene" uid="uid://cevg8ylibsipf" path="res://enemy/enemy.tscn" id="1_625gy"]
 [ext_resource type="PackedScene" uid="uid://d3o220y5yl4ng" path="res://player/player.tscn" id="1_sp61r"]
-
-[sub_resource type="Environment" id="Environment_kbh20"]
-background_energy_multiplier = 4.1
-ambient_light_color = Color(0.784314, 0.784314, 0.784314, 1)
-ambient_light_energy = 15.7
-tonemap_exposure = 7.49
-glow_enabled = true
-glow_intensity = 7.27
-glow_strength = 1.71
-glow_bloom = 0.85
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_m7qbc"]
 specular_color = Color(0, 0, 0, 1)
 
 [node name="world" type="Node"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_kbh20")
 
 [node name="Enemy" parent="." instance=ExtResource("1_625gy")]
 position = Vector2(578, 236)
@@ -37,3 +24,6 @@ modulate = Color(0.160784, 0.160784, 0.160784, 1)
 position = Vector2(578.75, 575.25)
 scale = Vector2(1158.5, 1151.5)
 texture = SubResource("CanvasTexture_m7qbc")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.870588, 0.870588, 0.870588, 0.556863)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3o220y5yl4ng"]
+[gd_scene load_steps=11 format=3 uid="uid://d3o220y5yl4ng"]
 
 [ext_resource type="Texture2D" uid="uid://7w7m557vudoh" path="res://player/assets/spr_player.png" id="1_55fwc"]
 [ext_resource type="Shader" path="res://player/player.gdshader" id="1_hw4as"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://components/movement_components/movement_characteristics.gd" id="5_4wdqh"]
 [ext_resource type="Script" path="res://components/movement_components/player_input/dash.gd" id="6_87n7t"]
 [ext_resource type="Script" path="res://components/movement_components/player_input/shoot.gd" id="7_bp38j"]
-[ext_resource type="Texture2D" uid="uid://dm071ctivb6hg" path="res://projectiles/assets/white_pill.png" id="8_6pxbs"]
 [ext_resource type="PackedScene" uid="uid://khckvubj083q" path="res://projectiles/projectile.tscn" id="8_rmukw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xxtf5"]
@@ -46,12 +45,15 @@ initial_pause_frames = 7
 dash_frames = 4
 dash_speed = 2300.0
 
-[node name="Shoot" type="Node2D" parent="."]
+[node name="Shoot" type="Node2D" parent="." node_paths=PackedStringArray("cooldown_timer")]
 script = ExtResource("7_bp38j")
 projectile_scene = ExtResource("8_rmukw")
-projectile_speed = 1000.0
-projectile_texture = ExtResource("8_6pxbs")
-projectile_damage = 10.0
+projectile_speed = 2000.0
+projectile_damage = 5.0
+cooldown_timer = NodePath("ShootCooldown")
+
+[node name="ShootCooldown" type="Timer" parent="Shoot"]
+wait_time = 0.114
 
 [connection signal="dash_end" from="PlayerDash" to="." method="_on_player_dash_dash_end"]
 [connection signal="dash_move_start" from="PlayerDash" to="." method="_on_player_dash_dash_move_start"]

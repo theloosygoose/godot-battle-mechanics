@@ -2,31 +2,43 @@ class_name Shoot
 extends Node2D 
 
 
-@export_group("Projectile")
+## Projectile Scene [br]
+## If no scene is loaded will load default projectile scene
 @export var projectile_scene: PackedScene 
 var default_projectile_scene: PackedScene = preload("res://projectiles/projectile.tscn")
 
-@export_subgroup("Projectile Proporties")
+
+## Speed for projectile
 @export var projectile_speed: float
+## Scale for projectile
 @export var projectile_scale: Vector2 
-@export var projectile_texture: Texture2D
+## Damage for projectile
 @export var projectile_damage: float
+
 
 var projectile_scene_checked: PackedScene 
 
+## Cooldown of shooter should be Timer Node
+@export var cooldown_timer: Timer 
+var can_shoot: bool = true
+
 func _ready() -> void:
 	projectile_scene_checked = check_projectile_scene()
+	cooldown_timer.timeout.connect(_on_timer_timeout)
 
+	
 func _process(_delta: float) -> void:
-	if input_shoot():
-		var projectile: Projectile = projectile_scene_checked.instantiate()
-		projectile.imported_texture = projectile_texture
-		projectile.speed = projectile_speed
-		projectile.direction = Vector2.UP
-		projectile.initial_position = global_position
-		projectile.damage = projectile_damage
+	if can_shoot:
+		if input_shoot():
+			cooldown_timer.start()
+			var projectile: Projectile = projectile_scene_checked.instantiate()
+			projectile.speed = projectile_speed
+			projectile.direction = Vector2.UP
+			projectile.initial_position = global_position
+			projectile.damage = projectile_damage
 
-		get_parent().get_parent().add_child(projectile)	
+			get_parent().get_parent().add_child(projectile)	
+			can_shoot = false
 
 
 func check_projectile_scene() -> PackedScene:
@@ -43,10 +55,13 @@ func check_projectile_scene() -> PackedScene:
 	push_error("NO PROJECTILE SCENE SET")
 	push_error("USING DEFAULT PROJECTILE: " + str(default_projectile_scene))
 	return default_projectile_scene
+	
 			
 func input_shoot() -> bool:
-	if Input.is_action_just_pressed("main_action"):
-		print("shoot")
+	if Input.is_action_pressed("main_action"):
 		return true
 
 	return false
+	
+func _on_timer_timeout() -> void:
+	can_shoot = true
