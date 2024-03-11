@@ -1,10 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bca6oic1xxh1p"]
+[gd_scene load_steps=5 format=3 uid="uid://bca6oic1xxh1p"]
 
 [ext_resource type="PackedScene" uid="uid://cevg8ylibsipf" path="res://enemy/enemy.tscn" id="1_625gy"]
 [ext_resource type="PackedScene" uid="uid://d3o220y5yl4ng" path="res://player/player.tscn" id="1_sp61r"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_m7qbc"]
 specular_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Environment" id="Environment_v8vtu"]
+background_mode = 3
+background_energy_multiplier = 3.0
+glow_enabled = true
+glow_levels/1 = 4.04
+glow_strength = 0.14
+glow_bloom = 0.08
+glow_hdr_luminance_cap = 48.37
+adjustment_enabled = true
+adjustment_brightness = 1.12
+adjustment_contrast = 1.12
+adjustment_saturation = 1.63
 
 [node name="world" type="Node"]
 
@@ -25,5 +38,5 @@ position = Vector2(578.75, 575.25)
 scale = Vector2(1158.5, 1151.5)
 texture = SubResource("CanvasTexture_m7qbc")
 
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.870588, 0.870588, 0.870588, 0.556863)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_v8vtu")
