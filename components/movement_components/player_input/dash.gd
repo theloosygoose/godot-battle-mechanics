@@ -40,8 +40,6 @@ func _physics_process(delta: float) -> void:
 			dash_move_start.emit()
 
 		dash_frame_counter += 1
-		
-	
 
 func dash_start() -> void: 
 	is_dashing = true
@@ -49,5 +47,5 @@ func dash_start() -> void:
 func dash_stop() -> void:
 	dash_frame_counter = 0
 	is_dashing = false
-	final_fixed_frame= false
+	final_fixed_frame = false
 	dash_end.emit()
