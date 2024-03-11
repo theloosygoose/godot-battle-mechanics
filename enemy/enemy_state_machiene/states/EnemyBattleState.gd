@@ -1,12 +1,14 @@
 class_name EnemyBattleState
 extends Node2D
 
+signal Transitioned
+
 enum StateType {
 	ATTACK,
 	SPECIAL_ABILITY,
 	IDLE,
 	DEATH,
-	ENTERANCE
+	ENTERANCE	
 }
 
 @export var state_type: StateType
