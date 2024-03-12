@@ -11,15 +11,10 @@ var battle_states: Dictionary:
 			battle_states = p_scenes 
 			notify_property_list_changed()
 			update_configuration_warnings()
-			for battle_state: EnemyBattleState in battle_states:
-				battle_state_wait_time[battle_state.name.to_lower()] = 0 
 
-
-@export_group("Battle Scene Proporties")
-@export var battle_state_wait_time: Dictionary
+@export var initial_state: EnemyBattleState
 
 var current_state: EnemyBattleState
-
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings: PackedStringArray = []
@@ -35,23 +30,34 @@ func _get_configuration_warnings() -> PackedStringArray:
 	return warnings
 	
 func _ready() -> void:
-	check_children()
+	check_children(false)
+	
+	if initial_state:
+		initial_state.enter()
+		current_state = initial_state
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		## Check the Children Real Time in the Editor
-		check_children()
+		check_children(true)
 	
 	if !Engine.is_editor_hint():
-		pass
+		if current_state:
+			current_state.update(delta)
+
+func _physics_process(delta: float) -> void:
+	if current_state:
+		current_state.physics_update(delta)
 	
 	
-func check_children() -> void:
+func check_children(in_editor: bool) -> void:
 	for child in get_children():
 		if child is EnemyBattleState:
 			var battle_state_node: EnemyBattleState = child
 			battle_states[battle_state_node.name.to_lower()] = battle_state_node
-			battle_state_node.Transitioned.connect(on_battle_state_transitioned)
+			if !in_editor:
+				battle_state_node.Transitioned.connect(on_battle_state_transitioned)
+
 			
 func on_battle_state_transitioned(state: EnemyBattleState, new_state_name: String) -> void:
 	if state != current_state:
