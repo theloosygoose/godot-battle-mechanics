@@ -1,7 +1,6 @@
 class_name EnemyIdle
 extends EnemyBattleState 
 
-@export var enemy: Node2D
 @export var speed: float = 100.0
 
 var move_direction: Vector2
@@ -20,9 +19,7 @@ func update(delta: float) -> void:
 		wander_time -= delta
 		
 	else:
-		print("wandering")
 		randomize_wander()
 
-
 func physics_update(delta: float) -> void:
-	enemy.position += (move_direction * speed) * delta
+	machine.parent.position += (move_direction * speed) * delta

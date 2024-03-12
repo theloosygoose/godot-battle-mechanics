@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cevg8ylibsipf"]
+[gd_scene load_steps=10 format=3 uid="uid://cevg8ylibsipf"]
 
 [ext_resource type="Texture2D" uid="uid://cc3ipdka04jsk" path="res://enemy/assets/lg_red_rectangle.png" id="1_62j60"]
 [ext_resource type="Script" path="res://enemy/enemy.gd" id="1_wcd7t"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://enemy/Label.gd" id="3_00n5o"]
 [ext_resource type="Script" path="res://enemy/enemy_state_machiene/EnemyStateMachiene.gd" id="6_pe5jf"]
 [ext_resource type="Script" path="res://enemy/enemy_state_machiene/states/EnemyIdle.gd" id="7_ykr0v"]
+[ext_resource type="Script" path="res://enemy/enemy_state_machiene/states/Enemy_Attack_01.gd" id="8_yrqdw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22680"]
 size = Vector2(149, 149)
@@ -43,9 +44,11 @@ script = ExtResource("3_00n5o")
 script = ExtResource("6_pe5jf")
 initial_state = NodePath("EnemyIdle")
 
-[node name="EnemyIdle" type="Node2D" parent="EnemyStateMachine" node_paths=PackedStringArray("enemy")]
+[node name="EnemyAttack_01" type="Node2D" parent="EnemyStateMachine"]
+script = ExtResource("8_yrqdw")
+
+[node name="EnemyIdle" type="Node2D" parent="EnemyStateMachine"]
 script = ExtResource("7_ykr0v")
-enemy = NodePath("../..")
 speed = 50.0
 state_type = 2
 

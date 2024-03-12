@@ -3,6 +3,8 @@
 class_name EnemyStateMachine
 extends Node
 
+##Parent whom this enemyscene is for children can also access this varible to interact with the parent easier
+@onready var parent: Node2D = get_parent()
 
 ## Scenes that are children of EnemyStateMachine
 var battle_states: Dictionary:
@@ -72,5 +74,4 @@ func on_battle_state_transitioned(state: EnemyBattleState, new_state_name: Strin
 		current_state.exit()
 		
 	new_state.enter()
-
 	current_state = new_state
